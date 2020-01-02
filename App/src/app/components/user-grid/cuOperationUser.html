@@ -1,0 +1,86 @@
+﻿
+<div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <label for="lastName-input" class="col-3 col-form-label text-right">
+                    Фамилия
+                    <span class="obligatory-field">*</span>
+                </label>
+                <div class="col-9">
+                    <input type="text" id="lastName-input"
+                           class="form-control form-control-sm"
+                           :maxlength="consts.MAX_LENGTH_LAST_NAME"
+                           v-model.trim="user.lastName" />
+                    <span class="text-danger"
+                          v-if="!isValidLastName">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        {{errorTextLastName}}
+                    </span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="firstName-input" class="col-3 col-form-label text-right">
+                    Имя
+                    <span class="obligatory-field">*</span>
+                </label>
+                <div class="col-9">
+                    <input id="firstName-input" type="text"
+                           class="form-control form-control-sm"
+                           :maxlength="consts.MAX_LENGTH_FIRST_NAME"
+                           v-model.trim="user.firstName" />
+                    <span class="text-danger"
+                          v-if="!isValidFirstName">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        {{errorTextFirstName}}
+                    </span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="middleName-input" class="col-3 col-form-label text-right">
+                    Отчество
+                </label>
+                <div class="col-9">
+                    <input type="text" id="middleName-input"
+                           class="form-control form-control-sm"
+                           :maxlength="consts.MAX_LENGTH_MIDDLE_NAME"
+                           v-model.trim="user.middleName" />
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-12 float-right"
+                     v-if="currentFormOperation === consts.EDITING_OPERATION">
+                    <label class="switch ">
+                        <input type="checkbox" class="success"
+                               v-model.trim="isUserActive">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+
+                </div>
+                <div class="col-9">
+                    <button class="btn btn-ed py-1"
+                            v-on:click="resetAddEditForm()">
+                        Отмена
+                    </button>
+                    <button class="btn btn-success py-1"
+                            v-if="currentFormOperation === consts.ADD_OPERATION"
+                            v-on:click="createUser()">
+                        Добавить
+                    </button>
+                    <button class="btn btn-success py-1"
+                            v-if="currentFormOperation === consts.EDITING_OPERATION"
+                            v-on:click="updateUser()">
+                        Редактировать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
